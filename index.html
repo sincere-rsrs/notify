@@ -32,7 +32,7 @@
             justify-content: center;
         }
 
-        .checkbox-input {
+        .custom-checkbox-input {
             display: none;
         }
 
@@ -163,9 +163,9 @@
             <!-- 第一列 -->
             <div class="col-4">
                 <!-- Checkbox 1 -->
-                <label>
-                    <input type="checkbox" id="c1" value="洗手台潮濕" class="checkbox-input">
-                    <svg class="checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="c1" value="洗手台潮濕" class="custom-checkbox-input">
+                    <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                         <style type="text/css">
                             .st0{fill:#9E6A46;}
@@ -220,8 +220,8 @@
             
             <div class="col-4">
                 <!-- Checkbox 2 -->
-                <label>
-                    <input type="checkbox" id="c2" value="地板潮濕" class="checkbox-input">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="c2" value="地板潮濕" class="custom-checkbox-input">
                     <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                         <style type="text/css">
@@ -263,8 +263,8 @@
 
             <div class="col-4">
                 <!-- Checkbox 3 -->
-                <label>
-                    <input type="checkbox" id="c3" value="垃圾桶將滿" class="checkbox-input">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="c3" value="垃圾桶將滿" class="custom-checkbox-input">
                     <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                         <style type="text/css">
@@ -308,8 +308,8 @@
             <!-- 第二列 -->
             <div class="col-4">
                 <!-- Checkbox 4 -->
-                <label>
-                    <input type="checkbox" id="c4" value="衛生紙短缺" class="checkbox-input">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="c4" value="衛生紙短缺" class="custom-checkbox-input">
                     <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                           <style type="text/css">
@@ -379,8 +379,8 @@
             
             <div class="col-4">
                 <!-- Checkbox 5 -->
-                <label>
-                    <input type="checkbox" id="c5" value="有異味" class="checkbox-input">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="c5" value="有異味" class="custom-checkbox-input">
                     <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                           <style type="text/css">
@@ -421,8 +421,8 @@
 
             <div class="col-4">
                 <!-- Checkbox 6 -->
-                <label>
-                    <input type="checkbox" id="c3" value="需要幫助" class="checkbox-input">
+                <label class="custom-checkbox">
+                    <input type="checkbox" id="c3" value="需要幫助" class="custom-checkbox-input">
                     <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                           <style type="text/css">
@@ -489,15 +489,9 @@
                 if (checkbox.checked) {
                     // 設置選中時的 SVG 樣式
                     svg.querySelector('.st1').style.fill = "#CCB38C";
-                    if(checkboxId == "c1" || checkboxId == "c4"){
-                        svg.querySelector('.st5').style.fill = "#CCB38C";
-                    }
                 } else {
                     // 設置未選中時的 SVG 樣式
                     svg.querySelector('.st1').style.fill = "#FFFFFF";
-                    if(checkboxId == "c1" || checkboxId == "c4"){
-                        svg.querySelector('.st5').style.fill = "#FFFFFF";
-                    }
                 }
             });
         });
