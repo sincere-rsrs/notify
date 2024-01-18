@@ -1,161 +1,222 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Untitled</title>
-    <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+    <title>Sincere - Restroom Status Notify System</title>
+
     <style>
-        body, html {
+
+        html, body {
+            height: 100%;
+            margin: 0;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
-        }
-        .custom-border-color {
-            border-color: #A16B47 !important;
-        }
-
-        .custom-checkbox-input {
-            display: none; /* 隱藏實際的 checkbox */
-        }
-
-        .custom-checkbox-svg {
-            fill: #ccc; /* 未選中時的顏色 */
         }
 
         .content-wrapper {
-            display: flex;
+            flex: 1;
             flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            padding-bottom: 60px;
+            justify-content: center; /* 在垂直方向上居中对齐 */
         }
 
-        .shadow-container {
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            z-index: 2;
-            position: relative;
-            overflow-y: auto;
+        .checkbox-input {
+            display: none; /* 隱藏實際的 checkbox */
+        }
+
+        .checkbox-svg {
+            fill: #ccc; /* 未選中時的顏色 */
+        }
+
+        .checkbox-label {
+            /* 使用 min-height 代替 height */
+            min-height: 5rem !important; /* 這是一個示例值，您可以根據需要調整 */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .checkbox-label > div {
+            line-height: 1.4 !important;
+        }
+
+
+        .checkbox-text {
+            color: #A16B47;
+        }
+
+        label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .custom-button {
+            padding: 0.5rem 0.5rem;
+            font-size: 1.25rem;
+            min-width: 150px;
+            border-color: #A16B47 !important;
         }
 
         .custom-footer {
-            background-color: white;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            z-index: 1;
-            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            bottom: 0;
             width: 100%;
+            background-color: white;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
         }
 
         .custom-footer p {
             margin: 0;
-            padding: 5px;
             font-weight: bold;
             color: #A16B47;
-            font-size: 16px;
+            font-size: 1rem;
         }
 
-        .checkbox-label {
-          height: 50px; /* 增加容器高度 */
-          text-align: center; /* 文字水平置中 */
-          display: flex;
-          flex-direction: column;
-          justify-content: center; /* 垂直置中 */
-          margin-top: 10px; /* 在SVG和文字之間添加上邊距 */
+        .shadow-container {
+            margin-bottom: 1rem; /* Space for footer overlap */
         }
 
-        .checkbox-label > div {
-          line-height: 1.4; /* 調整行高 */
-          margin: 2px 0; /* 為每一行文字添加上下邊距 */
+        /* 響應式媒體查詢 */
+        /* 小於 576px 的裝置，針對非常小的螢幕 */
+        @media only screen 
+        and (min-device-width: 320px) 
+        and (max-device-width: 568px)
+        and (-webkit-min-device-pixel-ratio: 2) {
+            .c-fs-xs {
+                font-size: 1rem !important; /* 適合非常小裝置的字體大小 */
+            }
+        }
+
+        /* 小於 768px 的裝置 */
+        @media only screen 
+        and (width: 390px) 
+        and (height: 844px) 
+        and (-webkit-device-pixel-ratio: 3) {
+            .c-fs-sm {
+                font-size: 1rem !important; /* 適合小型裝置的字體大小 */
+            }
+        }
+
+        @media (min-width: 768px) {
+            .c-fs-md {
+                font-size: 1.25rem; /* 相當於 Bootstrap 的 fs-4 大小 */
+            }
+            .h1-fs-md {
+                font-size: 2rem;
+            }
+            .h1-md-mb {
+                margin-bottom: 0.5rem;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .c-fs-lg {
+                font-size: 1.5rem; /* 相當於 Bootstrap 的 fs-3 大小 */
+            }
+            .h1-fs-lg {
+                font-size: 2.5rem;
+            }
+            .h1-lg-mb {
+                margin-bottom: 0.75rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .c-fs-xl {
+                font-size: 1.75rem; /* 相當於 Bootstrap 的 fs-2 大小 */
+            }
+            .h1-fs-xl {
+                font-size: 3rem;
+            }
+            .h1-xl-mb {
+                margin-bottom: 1rem;
+            }
         }
 
     </style>
-</head>
 
-<body style="background: #CCB38C;">
+  </head>
+  <body style="background: #CCB38C;">
     <div class="container">
-        <div class="row">
-            <div class="col d-flex justify-content-center" style="margin-top: 10%;margin-bottom: 5%;">
-                <h6 class="text-center">
-                    <b>
-                    廁間狀況通報<br>Restroom Status Notify System<br>
-                    </b>
-                </h6>
-            </div>
+        <div class="py-4 my-4 mb-0 h1-xl-mb h1-lg-mb h1-md-mb text-center">
+            <h1 class="fs-4 h1-fs-md h1-fs-lg h1-fs-xl fw-bold">廁間狀況通報<br>Restroom Status Notify System</h1>
         </div>
     </div>
-    <div class="content-wrapper d-flex flex-column">
-        <div class="container border rounded d-flex justify-content-center shadow-container" style="width: 95%; background: #fbfbfb;">
-            <div class="row" style="background: rgba(255,255,255,0) text-center d-flex justify-content-center align-items-center" style="margin-bottom: 5%; margin-top: 5%;">
-                <div class="col">
-                    <!-- Checkbox 1 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="c1" value="洗手台潮濕" class="custom-checkbox-input">
-                        <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-                        viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
-                            <style type="text/css">
-                              .st0{fill:#9E6A46;}
-                              .st1{fill:#FFFFFF;}
-                            </style>
-                            <path class="st0" d="M419.9,499.6H80.1C35.9,499.6,0,463.7,0,419.4V79.7C0,35.4,35.9-0.4,80.1-0.4h339.8c44.2,0,80.1,35.9,80.1,80.1
-                              v339.8C500,463.7,464.1,499.6,419.9,499.6z"/>
-                            <path class="st1" d="M394.8,475H105.1C60.9,475,25,439.1,25,394.9V105.1C25,60.8,60.9,25,105.1,25h289.8c44.2,0,80.1,35.9,80.1,80.1
-                              v289.8C474.9,439.1,439.1,475,394.8,475z"/>
-                            <g>
-                              <g>
-                                <path class="st0" d="M452,271h-58.7v-14.1c0-3.7-3-6.7-6.7-6.7h-23.8v-10h15.9c11.2,0,20.2-9.1,20.2-20.2
-                                  c0-11.2-9.1-20.2-20.2-20.2h-37c-11.2,0-20.2,9.1-20.2,20.2v20h-5.8v10.2h-39.9V240h-5.7V121.4c0-3.6,2.9-6.4,6.4-6.4
-                                  c3.5,0,6.4,2.9,6.4,6.4v5.8c-2.1,1.1-3.5,3.4-3.5,5.9v19.1c0,3.7,3,6.7,6.7,6.7h33.4c3.7,0,6.7-3,6.7-6.7v-19.1
-                                  c0-2.6-1.4-4.8-3.5-5.9v-5.8c0-25.5-20.7-46.3-46.3-46.3c-25.5,0-46.3,20.7-46.3,46.3V240h-5.7v10.2h-39.9V240h-5.8v-20
-                                  c0-11.2-9.1-20.2-20.2-20.2h-37c-11.2,0-20.2,9.1-20.2,20.2c0,11.1,9.1,20.2,20.2,20.2h15.9v10h-23.8c-3.7,0-6.7,3-6.7,6.7V271H48
-                                  c-1.8,0-3.5,0.7-4.8,2c-1.3,1.3-2,3-2,4.8c0,23.3,14.8,52.2,39.6,77.4c24,24.3,51.7,39.3,72.5,39.3h193.2
-                                  c20.7,0,48.5-15.1,72.5-39.3c24.8-25.1,39.6-54,39.6-77.4C458.7,274,455.7,271,452,271z M334.9,219.9c0-3.7,3-6.8,6.8-6.8h37
-                                  c3.7,0,6.8,3,6.8,6.8c0,3.7-3,6.8-6.8,6.8h-28.5c-3.7,0-6.7,3-6.7,6.7v6.6h-8.6V219.9z M312.7,145.4h-20v-5.6h20V145.4z
-                                  M243.6,121.4c0-18.1,14.7-32.8,32.8-32.8c18.1,0,32.8,14.7,32.8,32.8v5h-12.9v-5c0-11-8.9-19.9-19.9-19.9
-                                  c-11,0-19.9,8.9-19.9,19.9V240h-12.9L243.6,121.4L243.6,121.4z M121.4,226.7c-3.7,0-6.8-3-6.8-6.8c0-3.7,3-6.8,6.8-6.8h37
-                                  c3.7,0,6.8,3,6.8,6.8v20h-8.6v-6.6c0-3.7-3-6.7-6.7-6.7L121.4,226.7L121.4,226.7z M120.2,263.6h259.7v7.3H120.2V263.6z
-                                  M409.5,345.6c-21.2,21.5-45.9,35.3-62.9,35.3H153.4c-17,0-41.7-13.9-62.9-35.3c-19.9-20.2-32.7-42.5-35.3-61.2h389.5
-                                  C442.2,303.1,429.4,325.4,409.5,345.6z"/>
-                              </g>
-                            </g>
-                            <path class="st0" d="M305,162.3c0.9,0.3,1.6,0.8,2.1,1.5c5.1,7,9.2,14.2,12.1,21.5c6.2,15.4-10.2,29.9-24.8,22.4
-                              c-8-4.1-11.8-13.4-8.5-22.1c2.6-6.7,6.5-13.7,11.7-21C299.5,162,302,161.2,305,162.3z M299.1,185.5c-1.8,3.5-4,7.5-0.3,10.7
-                              c3.7,3.2,9.5,1,9.8-3.9c0.1-1.2-0.2-2.5-1-4.1c-1.5-3.3-3.1-6.2-4.7-8.9c-0.2-0.3-0.3-0.3-0.5,0
-                              C301.3,181.3,300.2,183.3,299.1,185.5z"/>
-                            <path class="st0" d="M138.2,44.8c-8.7,10.4-25.5,40.3,0,43.3C163.7,85.1,147,55.2,138.2,44.8z M138.2,53.1c6.4,8.3,16.5,28.6,0,30.3
-                              C121.7,81.7,131.9,61.5,138.2,53.1z M111.6,69.4c-7.4,5.4-15.5,7-23.3,1.2c-0.7-1.3-2.4-1.4-3.5-0.6c0,0,0,0,0,0.1
-                              c0,0-0.1,0-0.1,0.1c0,0,0,0,0,0.1c-3,2.9-8.1,4-11.1,4c-1.3,0-2.3,1-2.3,2.3c1.5,5.3,10.8,1,15.1-1.7c8.9,5.5,16.5,5.6,25.4,0.1
-                              c3.1,2.2,6.8,3.3,10,3.8c-0.4-1.5-0.7-3.1-0.7-4.8c-2.3-0.5-4.8-1.4-6.9-3C113.7,69.9,112.7,69.3,111.6,69.4z M162.1,69.6
-                              c-2.2,1.1-4.1,3.1-6.6,3.7c0,1.7-0.2,3.3-0.6,4.9c2.6-0.6,5.2-1.7,7.5-3.4c4.3,2.7,13.4,6.9,15.1,1.8c0-1.3-1-2.3-2.3-2.3
-                              C171.3,74.9,166.2,71.3,162.1,69.6z M111.8,94.8c-7.8,5.6-16.9,7.1-24.6,0.4c0,0-0.1,0-0.1,0c0,0,0,0-0.1-0.1c0,0-0.1,0-0.1,0
-                              c0,0,0,0-0.1-0.1c-0.7-0.1-1.4,0-2,0.4c0,0,0,0,0,0.1c0,0-0.1,0-0.1,0.1c0,0,0,0,0,0.1c-3,2.9-8.1,4-11.1,4c-1.3,0-2.3,1-2.3,2.3
-                              c1.5,5.3,10.8,1,15.1-1.7c8.9,5.5,16.5,5.5,25.4,0c8.9,5.5,16.5,5.5,25.4,0c8.9,5.5,16.5,5.5,25.4,0c4.3,2.7,13.4,6.9,15.1,1.8
-                              c0-1.3-1-2.3-2.3-2.3c-2.8,0-7.3-0.9-10.5-3.3c-2.5-5.4-11.6,10-25.4,0c-0.5-1.3-2.2-1.9-3.3-1.1c0,0,0,0-0.1,0
-                              c-6.7,5.7-14.7,5.9-22,1.1C113.7,95.4,112.7,94.8,111.8,94.8z M110.5,109.6c-8.7,10.4-25.5,40.3,0,43.3
-                              C136,149.9,119.2,119.9,110.5,109.6z M110.5,117.9c6.4,8.3,16.5,28.6,0,30.3C94,146.5,104.1,126.2,110.5,117.9z M162.6,120.3
-                              c-8.4,6.4-17.1,6.1-25.6,0.2c-3.9,2.3-8.9,5.2-12.9,4.6c0.7,1.5,1.3,3,1.9,4.6c3.5-0.3,7.8-1.4,11.2-3.9c8.9,5.5,16.5,5.5,25.4-0.1
-                              c4.3,2.7,13.4,6.9,15.1,1.8c0-1.3-1-2.3-2.3-2.3c-2.8,0-7.3-0.9-10.5-3.3C164.6,120.9,163.6,120.3,162.6,120.3z M86,120.4
-                              c-3.6,2.6-8.8,5-12.5,4.7c-1.3,0-2.3,1-2.3,2.3c1.5,5.2,10.8,1,15.1-1.6c2.7,2,5.9,3.1,8.9,3.6c0.5-1.5,1.2-3,1.9-4.4
-                              C93,125.2,89.5,121.6,86,120.4z"/>
-                          </svg>
-                        <div class="checkbox-label" style="margin-left: 5px;">
-                            <div style="color: #A16B47; font-size: 12px;">洗手台潮濕</div>
-                            <div style="color: #A16B47; font-size: 12px;">Sink wet</div>
-                        </div>
-                    </label>
-                </div>
 
-                <div class="col">
-                    <!-- Checkbox 2 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="c2" value="地板潮濕" class="custom-checkbox-input">
-                        <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    <div class="container content-wrapper pb-5 pt-4 border rounded d-flex justify-content-center shadow-container" style="width:95%; background: #ffffff;">
+        <div class="row mb-2 justify-content-between align-items-center">
+            
+            <!-- 第一列 -->
+            <div class="col-4">
+                <!-- Checkbox 1 -->
+                <label>
+                    <input type="checkbox" id="c1" value="洗手台潮濕" class="checkbox-input">
+                    <svg class="checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
+                        <style type="text/css">
+                            .st0{fill:#9E6A46;}
+                            .st1{fill:#FFFFFF;}
+                        </style>
+                        <path class="st0" d="M419.9,499.6H80.1C35.9,499.6,0,463.7,0,419.4V79.7C0,35.4,35.9-0.4,80.1-0.4h339.8c44.2,0,80.1,35.9,80.1,80.1
+                            v339.8C500,463.7,464.1,499.6,419.9,499.6z"/>
+                        <path class="st1" d="M394.8,475H105.1C60.9,475,25,439.1,25,394.9V105.1C25,60.8,60.9,25,105.1,25h289.8c44.2,0,80.1,35.9,80.1,80.1
+                            v289.8C474.9,439.1,439.1,475,394.8,475z"/>
+                        <g>
+                            <g>
+                            <path class="st0" d="M452,271h-58.7v-14.1c0-3.7-3-6.7-6.7-6.7h-23.8v-10h15.9c11.2,0,20.2-9.1,20.2-20.2
+                                c0-11.2-9.1-20.2-20.2-20.2h-37c-11.2,0-20.2,9.1-20.2,20.2v20h-5.8v10.2h-39.9V240h-5.7V121.4c0-3.6,2.9-6.4,6.4-6.4
+                                c3.5,0,6.4,2.9,6.4,6.4v5.8c-2.1,1.1-3.5,3.4-3.5,5.9v19.1c0,3.7,3,6.7,6.7,6.7h33.4c3.7,0,6.7-3,6.7-6.7v-19.1
+                                c0-2.6-1.4-4.8-3.5-5.9v-5.8c0-25.5-20.7-46.3-46.3-46.3c-25.5,0-46.3,20.7-46.3,46.3V240h-5.7v10.2h-39.9V240h-5.8v-20
+                                c0-11.2-9.1-20.2-20.2-20.2h-37c-11.2,0-20.2,9.1-20.2,20.2c0,11.1,9.1,20.2,20.2,20.2h15.9v10h-23.8c-3.7,0-6.7,3-6.7,6.7V271H48
+                                c-1.8,0-3.5,0.7-4.8,2c-1.3,1.3-2,3-2,4.8c0,23.3,14.8,52.2,39.6,77.4c24,24.3,51.7,39.3,72.5,39.3h193.2
+                                c20.7,0,48.5-15.1,72.5-39.3c24.8-25.1,39.6-54,39.6-77.4C458.7,274,455.7,271,452,271z M334.9,219.9c0-3.7,3-6.8,6.8-6.8h37
+                                c3.7,0,6.8,3,6.8,6.8c0,3.7-3,6.8-6.8,6.8h-28.5c-3.7,0-6.7,3-6.7,6.7v6.6h-8.6V219.9z M312.7,145.4h-20v-5.6h20V145.4z
+                                M243.6,121.4c0-18.1,14.7-32.8,32.8-32.8c18.1,0,32.8,14.7,32.8,32.8v5h-12.9v-5c0-11-8.9-19.9-19.9-19.9
+                                c-11,0-19.9,8.9-19.9,19.9V240h-12.9L243.6,121.4L243.6,121.4z M121.4,226.7c-3.7,0-6.8-3-6.8-6.8c0-3.7,3-6.8,6.8-6.8h37
+                                c3.7,0,6.8,3,6.8,6.8v20h-8.6v-6.6c0-3.7-3-6.7-6.7-6.7L121.4,226.7L121.4,226.7z M120.2,263.6h259.7v7.3H120.2V263.6z
+                                M409.5,345.6c-21.2,21.5-45.9,35.3-62.9,35.3H153.4c-17,0-41.7-13.9-62.9-35.3c-19.9-20.2-32.7-42.5-35.3-61.2h389.5
+                                C442.2,303.1,429.4,325.4,409.5,345.6z"/>
+                            </g>
+                        </g>
+                        <path class="st0" d="M305,162.3c0.9,0.3,1.6,0.8,2.1,1.5c5.1,7,9.2,14.2,12.1,21.5c6.2,15.4-10.2,29.9-24.8,22.4
+                            c-8-4.1-11.8-13.4-8.5-22.1c2.6-6.7,6.5-13.7,11.7-21C299.5,162,302,161.2,305,162.3z M299.1,185.5c-1.8,3.5-4,7.5-0.3,10.7
+                            c3.7,3.2,9.5,1,9.8-3.9c0.1-1.2-0.2-2.5-1-4.1c-1.5-3.3-3.1-6.2-4.7-8.9c-0.2-0.3-0.3-0.3-0.5,0
+                            C301.3,181.3,300.2,183.3,299.1,185.5z"/>
+                        <path class="st0" d="M138.2,44.8c-8.7,10.4-25.5,40.3,0,43.3C163.7,85.1,147,55.2,138.2,44.8z M138.2,53.1c6.4,8.3,16.5,28.6,0,30.3
+                            C121.7,81.7,131.9,61.5,138.2,53.1z M111.6,69.4c-7.4,5.4-15.5,7-23.3,1.2c-0.7-1.3-2.4-1.4-3.5-0.6c0,0,0,0,0,0.1
+                            c0,0-0.1,0-0.1,0.1c0,0,0,0,0,0.1c-3,2.9-8.1,4-11.1,4c-1.3,0-2.3,1-2.3,2.3c1.5,5.3,10.8,1,15.1-1.7c8.9,5.5,16.5,5.6,25.4,0.1
+                            c3.1,2.2,6.8,3.3,10,3.8c-0.4-1.5-0.7-3.1-0.7-4.8c-2.3-0.5-4.8-1.4-6.9-3C113.7,69.9,112.7,69.3,111.6,69.4z M162.1,69.6
+                            c-2.2,1.1-4.1,3.1-6.6,3.7c0,1.7-0.2,3.3-0.6,4.9c2.6-0.6,5.2-1.7,7.5-3.4c4.3,2.7,13.4,6.9,15.1,1.8c0-1.3-1-2.3-2.3-2.3
+                            C171.3,74.9,166.2,71.3,162.1,69.6z M111.8,94.8c-7.8,5.6-16.9,7.1-24.6,0.4c0,0-0.1,0-0.1,0c0,0,0,0-0.1-0.1c0,0-0.1,0-0.1,0
+                            c0,0,0,0-0.1-0.1c-0.7-0.1-1.4,0-2,0.4c0,0,0,0,0,0.1c0,0-0.1,0-0.1,0.1c0,0,0,0,0,0.1c-3,2.9-8.1,4-11.1,4c-1.3,0-2.3,1-2.3,2.3
+                            c1.5,5.3,10.8,1,15.1-1.7c8.9,5.5,16.5,5.5,25.4,0c8.9,5.5,16.5,5.5,25.4,0c8.9,5.5,16.5,5.5,25.4,0c4.3,2.7,13.4,6.9,15.1,1.8
+                            c0-1.3-1-2.3-2.3-2.3c-2.8,0-7.3-0.9-10.5-3.3c-2.5-5.4-11.6,10-25.4,0c-0.5-1.3-2.2-1.9-3.3-1.1c0,0,0,0-0.1,0
+                            c-6.7,5.7-14.7,5.9-22,1.1C113.7,95.4,112.7,94.8,111.8,94.8z M110.5,109.6c-8.7,10.4-25.5,40.3,0,43.3
+                            C136,149.9,119.2,119.9,110.5,109.6z M110.5,117.9c6.4,8.3,16.5,28.6,0,30.3C94,146.5,104.1,126.2,110.5,117.9z M162.6,120.3
+                            c-8.4,6.4-17.1,6.1-25.6,0.2c-3.9,2.3-8.9,5.2-12.9,4.6c0.7,1.5,1.3,3,1.9,4.6c3.5-0.3,7.8-1.4,11.2-3.9c8.9,5.5,16.5,5.5,25.4-0.1
+                            c4.3,2.7,13.4,6.9,15.1,1.8c0-1.3-1-2.3-2.3-2.3c-2.8,0-7.3-0.9-10.5-3.3C164.6,120.9,163.6,120.3,162.6,120.3z M86,120.4
+                            c-3.6,2.6-8.8,5-12.5,4.7c-1.3,0-2.3,1-2.3,2.3c1.5,5.2,10.8,1,15.1-1.6c2.7,2,5.9,3.1,8.9,3.6c0.5-1.5,1.2-3,1.9-4.4
+                            C93,125.2,89.5,121.6,86,120.4z"/>
+                    </svg>
+                    <div class="checkbox-label">
+                        <div class="checkbox-text c-fs-xs c-fs-sm fs-5 c-fs-md c-fs-lg c-fs-xl">洗手台潮濕<br>Sink wet</div>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="col-4">
+                <!-- Checkbox 2 -->
+                <label>
+                    <input type="checkbox" id="c2" value="地板潮濕" class="checkbox-input">
+                    <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                         <style type="text/css">
                             .st0{fill:#A16B47;}
@@ -187,19 +248,18 @@
                             S111.63,323.88,105.96,317.14z"/>
                         <path class="st0" d="M79.52,358.97c-8.67,1.53-14.47,9.8-12.94,18.48c1.53,8.67,9.8,14.47,18.48,12.94s30.23-21.53,30.23-21.53
                             S88.19,357.44,79.52,358.97z"/>
-                        </svg>
-                        <div class="checkbox-label" style="margin-left: 5px;">
-                            <div style="color: #A16B47; font-size: 12px;">地板潮濕</div>
-                            <div style="color: #A16B47; font-size: 12px;">Floor wet</div>
-                        </div>
-                    </label>
-                </div>
+                    </svg>
+                    <div class="checkbox-label">
+                        <div class="checkbox-text c-fs-xs c-fs-sm fs-5 c-fs-md c-fs-lg c-fs-xl">地板潮濕<br>Floor wet</div>
+                    </div>
+                </label>
+            </div>
 
-                <div class="col">
-                    <!-- Checkbox 3 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="c3" value="垃圾桶將滿" class="custom-checkbox-input">
-                        <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <div class="col-4">
+                <!-- Checkbox 3 -->
+                <label>
+                    <input type="checkbox" id="c3" value="垃圾桶將滿" class="checkbox-input">
+                    <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                         <style type="text/css">
                             .st0{fill:#A16B47;}
@@ -232,21 +292,19 @@
                             l0.38-0.05l0.37-0.05l0.19-0.03l0.19-0.02l0.38-0.05l0.38-0.04l0.05-0.01l0.33-0.04l0.38-0.04l0.29-0.02l0.09-0.01l0.38-0.03
                             l0.38-0.03l0.15-0.01l0.23-0.02c0.92-0.06,1.96-0.52,2.79-0.09C216.88,174.88,232.57,178.1,236.24,199.18L236.24,199.18z
                             M201.53,107.26l67.35-23.55l-6.37-18.22l-67.35,23.55L201.53,107.26z"/>
-                        </svg>
-                        <div class="checkbox-label" style="margin-left: 5px;">
-                            <div style="color: #A16B47; font-size: 12px;">垃圾桶將滿</div>
-                            <div style="color: #A16B47; font-size: 12px;">Trash full</div>
-                        </div>
-                    </label>
-                </div>
+                    </svg>
+                    <div class="checkbox-label">
+                        <div class="checkbox-text c-fs-xs c-fs-sm fs-5 c-fs-md c-fs-lg c-fs-xl">垃圾桶將滿<br>Trash full</div>
+                    </div>
+                </label>
             </div>
 
-            <div class="row" style="background: rgba(255,255,255,0) text-center d-flex justify-content-center align-items-center" style="margin-bottom: 5%; margin-top: 5%;"></div>
-                <div class="col">
-                    <!-- Checkbox 4 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="c4" value="衛生紙短缺" class="custom-checkbox-input">
-                        <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <!-- 第二列 -->
+            <div class="col-4">
+                <!-- Checkbox 4 -->
+                <label>
+                    <input type="checkbox" id="c4" value="衛生紙短缺" class="checkbox-input">
+                    <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                           <style type="text/css">
                             .st0{fill:#9E6A46;}
@@ -306,19 +364,18 @@
                             l-0.6,1.8c-0.7,2.1-0.2,3.9,1.4,5.4l6.8,6.5c0.9,0.8,1,1.7,0.4,2.8l-0.6,1.1c-0.4,0.7-0.3,1.4,0.3,1.9l5.1,4.5
                             C294,370.3,294.4,371,294.5,371.8z M208.5,380.6c-9.5-7.5-18.1-15.2-25.8-23.1c-0.9-0.9-1.3-0.7-1,0.5c1.3,6.8,1.9,14.3,1.9,22.3
                             c0,1,0.5,1.5,1.5,1.5l23,0C209.4,381.8,209.5,381.4,208.5,380.6z"/>
-                        </svg>
-                        <div class="checkbox-label" style="margin-left: 5px;">
-                            <div style="color: #A16B47; font-size: 12px;">衛生紙短缺</div>
-                            <div style="color: #A16B47; font-size: 12px;">Toilet paper shortage</div>
-                        </div>
-                    </label>
-                </div>
-
-                <div class="col">
-                    <!-- Checkbox 5 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="c5" value="有異味" class="custom-checkbox-input">
-                        <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                    </svg>
+                    <div class="checkbox-label">
+                        <div class="checkbox-text c-fs-xs c-fs-sm fs-5 c-fs-md c-fs-lg c-fs-xl">衛生紙短缺<br>Toilet paper shortage</div>
+                    </div>
+                </label>
+            </div>
+            
+            <div class="col-4">
+                <!-- Checkbox 5 -->
+                <label>
+                    <input type="checkbox" id="c5" value="有異味" class="checkbox-input">
+                    <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                           <style type="text/css">
                             .st0{fill:#9E6A46;}
@@ -349,19 +406,18 @@
                             c-19.4-2.1-36.6,2.1-51.6,12.8c-16.1,11.5-31.5,27-52.9,18c-17.6-7.5-32.7-23.5-34.8-43.1c-1.9-18.1,7-38.1,17.8-52.8
                             c2.5-3.5,5.7-4.5,9.9-3.1c1,0.4,1.8,1,2.2,2c1.5,3,1.4,5.9-0.5,8.6c-17.6,26.1-24.8,53.5,5.1,72.5c9.5,6,18.5,5.9,27-0.6
                             C184.8,395.5,193.6,389.4,202,384.4z"/>
-                        </svg>
-                        <div class="checkbox-label" style="margin-left: 5px;">
-                            <div style="color: #A16B47; font-size: 12px;">有異味</div>
-                            <div style="color: #A16B47; font-size: 12px;">Odor</div>
-                        </div>
-                    </label>
-                </div>
+                    </svg>
+                    <div class="checkbox-label">
+                        <div class="checkbox-text c-fs-xs c-fs-sm fs-5 c-fs-md c-fs-lg c-fs-xl">有異味<br>Odor</div>
+                    </div>
+                </label>
+            </div>
 
-                <div class="col">
-                    <!-- Checkbox 6 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="c6" value="需要幫助" class="custom-checkbox-input">
-                        <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+            <div class="col-4">
+                <!-- Checkbox 6 -->
+                <label>
+                    <input type="checkbox" id="c3" value="需要幫助" class="checkbox-input">
+                    <svg class="custom-checkbox-svg" width="80%" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                         viewBox="0 0 500 500" style="enable-background:new 0 0 500 500;" xml:space="preserve">
                           <style type="text/css">
                             .st0{fill:#9E6A46;}
@@ -374,107 +430,59 @@
                             c44.2,0,80.1,35.9,80.1,80.1v289.8C475.2,439.1,439.4,475,395.1,475z"/>
                           <polygon class="st2" points="250.2,74 58.9,405.6 441.6,405.6 "/>
                           <path class="st0" d="M263,218.6l-4.8,95.7h-15.5l-4.8-95.7v-38.7h25V218.6z M263,358.8h-25v-25h25V358.8z"/>
-                        </svg>
-                        <div class="checkbox-label" style="margin-left: 5px;">
-                            <div style="color: #A16B47; font-size: 12px;">需要幫助</div>
-                            <div style="color: #A16B47; font-size: 12px;">Need help</div>
-                        </div>
-                    </label>
+                    </svg>
+                    <div class="checkbox-label">
+                        <div class="checkbox-text c-fs-xs c-fs-sm fs-5 c-fs-md c-fs-lg c-fs-xl">需要幫助<br>Need help</div>
+                    </div>
+                </label>
+            </div>
+
+            <!-- 第三列 -->
+            <div class="col-12">
+                <div class="py-2 my-2 mb-0 h1-xl-mb h1-lg-mb h1-md-mb text-center">
+                    <h1 class="fs-4 h1-fs-md h1-fs-lg h1-fs-xl fw-bold" style="color: #A16B47;">是否通報？<br>NOTIFICATION</h1>
                 </div>
             </div>
 
-            <div class="row" style="background: rgba(255,255,255,0) text-center d-flex justify-content-center align-items-center" style="margin-bottom: 5%; margin-top: 5%;"></div>
-                <div class="col text-center" style="margin-bottom: 5%;"><span
-                        style="color: #A16B47;"><strong>是否通報？</strong><br><strong>NOTIFICATION</strong><br></span>
-                </div>
-                <br>
-                <div class="col d-flex justify-content-center justify-content-around" style="margin-bottom: 5%;">
-                    <button id="submitReport" class="btn btn-primary btn-lg text-start border rounded d-flex justify-content-center align-items-center"
-                            type="button" style="background: #A16B47;width: 30%;">
-                        <span class="text-center" style="color: #fdfdfe;font-size: 14px;line-height: 110%;">
-                            <strong>通報</strong><br>SEND<br>
-                        </span>
-                    </button>
-                    
-                    <button id="cancelReport" class="btn btn-lg border rounded d-flex justify-content-center align-items-center custom-border-color"
-                            style="width: 30%;" type="button">
-                        <span class="text-center" style="color: #A16B47;font-size: 14px;line-height: 110%;">
-                            <strong>取消</strong><br>CANCEL<br>
-                        </span>
-                    </button>
-                </div>
+            <!-- 第四列 -->
+            <div class="col-6 d-flex justify-content-center justify-content-around">
+                <button id="submitReport" class="btn btn-primary mx-auto btn-lg border rounded d-flex justify-content-center align-items-center custom-button"
+                        type="button" style="background: #A16B47;">
+                    <span class="text-center" style="color: #fdfdfe;">
+                        <strong>通報</strong><br>SEND<br>
+                    </span>
+                </button>
             </div>
-            
+
+            <div class="col-6 d-flex justify-content-center justify-content-around">
+                <button id="cancelReport" class="btn btn-lg mx-auto border rounded d-flex justify-content-center align-items-center custom-button"
+                        type="button">
+                    <span class="text-center" style="color: #A16B47;">
+                        <strong>取消</strong><br>CANCEL<br>
+                    </span>
+                </button>
+            </div>
+
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="custom-footer">
-        <div class="text-center" style="padding-top: 20px;">
+    <div class="container custom-footer pt-5 pb-3">
+        <div class="text-center">
             <p>- THANK YOU VERY MUCH! -</p>
             <p>謝謝您讓環境更臻美麗</p>
             <p>- 信實集團感謝您 -</p>
         </div>
-    </footer>
-    <script>
-        document.querySelectorAll('.custom-checkbox').forEach(function(label) {
-            label.addEventListener('click', function() {
-                const checkbox = this.querySelector('.custom-checkbox-input');
-                const svg = this.querySelector('.custom-checkbox-svg');
-                const checkboxId = checkbox.id; // 獲取 checkbox 的 ID
-                if (checkbox.checked) {
-                    // 設置選中時的 SVG 樣式
-                    svg.querySelector('.st1').style.fill = "#CCB38C";
-                    if(checkboxId == "c1" || checkboxId == "c4"){
-                        svg.querySelector('.st5').style.fill = "#CCB38C";
-                    }
-                } else {
-                    // 設置未選中時的 SVG 樣式
-                    svg.querySelector('.st1').style.fill = "#FFFFFF";
-                    if(checkboxId == "c1" || checkboxId == "c4"){
-                        svg.querySelector('.st5').style.fill = "#FFFFFF";
-                    }
-                }
-            });
-        });
+    </div>
+        
 
-        document.getElementById('submitReport').addEventListener('click', function() {
-          // 收集選中的 checkbox
-          var checkedBoxes = document.querySelectorAll('.custom-checkbox-input:checked');
+    <!-- Optional JavaScript; choose one of the two! -->
 
-          // 檢查是否至少選中了一個 checkbox
-          if (checkedBoxes.length === 0) {
-            alert('請選擇需通報事項');
-            return; // 中斷函數執行
-          }
-
-          var values = Array.from(checkedBoxes).map(function(checkbox) {
-            return checkbox.value;
-          });
-        });
-
-        document.getElementById('cancelReport').addEventListener('click', function() {
-          resetForm();
-        });
-
-        function resetForm() {
-          // 清除所有 checkbox 的選中狀態
-          var checkboxes = document.querySelectorAll('.custom-checkbox-input');
-          checkboxes.forEach(function(checkbox) {
-            checkbox.checked = false;
-          });
-
-          // 重置所有 SVG 的顏色
-          var svgs = document.querySelectorAll('.custom-checkbox-svg');
-          svgs.forEach(function(svg) {
-            svg.querySelectorAll('.st1, .st5').forEach(function(path) {
-              path.style.fill = "#FFFFFF"; // 將所有相關 SVG 路徑設置為白色
-            });
-          });
-        }
-
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.1/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    -->
+  </body>
 </html>
