@@ -522,7 +522,7 @@
         var place = getParameterByName('place'); // Function to extract URL parameter
         var selectedCheckboxes = getSelectedCheckboxes(); // Function to get selected checkboxes values
 
-        fetch('https://script.google.com/macros/s/AKfycbwEnl_lwZkvnO-mHZRJj7MdR0ynY4-0zZO28nNnnphCMXGqSNNIOdBS3mjbPaHxRnlq/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbyUsPQiygG5HHQLSXEuL_QSYUe27B0uZm1HJQgHaqnHFLlWqH5ogMyGVEHZlQBrPa5c/exec', {
             method: 'POST',
             contentType: 'application/json',
             payload: JSON.stringify({date: date, time: time, place: place, selectedCheckboxes: selectedCheckboxes})
