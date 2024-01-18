@@ -523,16 +523,22 @@
         var selectedCheckboxes = getSelectedCheckboxes(); // Function to get selected checkboxes values
 
         fetch('https://script.google.com/macros/s/AKfycby0cfZuCV416jrLDlDvrrAYgbvP5BZn-Iy2C-bPlPJmMKCRX6hfTuSVQjh4DNSJo8d3/exec', {
-            redirect: "follow",
             method: 'POST',
-            contentType: 'application/json',
-            payload: JSON.stringify({date: date, time: time, place: place, selectedCheckboxes: selectedCheckboxes}),
             headers: {
-                "Content-Type": "text/plain;charset=utf-8",
+                "Content-Type": "application/json"
             },
-        }).then(response => response.json())
-            .then(data => console.log(data));
-        });
+            body: JSON.stringify({
+                date: new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }),
+                time: new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
+                place: place,
+                selectedCheckboxes: selectedCheckboxes
+            }),
+            redirect: "follow"
+        })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error('Error:', error));
+
 
         function getSelectedCheckboxes() {
         var checkboxes = document.querySelectorAll('.checkbox-input:checked');
