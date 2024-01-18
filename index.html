@@ -523,6 +523,7 @@
         var selectedCheckboxes = getSelectedCheckboxes(); // Function to get selected checkboxes values
 
         fetch('https://script.google.com/macros/s/AKfycby0cfZuCV416jrLDlDvrrAYgbvP5BZn-Iy2C-bPlPJmMKCRX6hfTuSVQjh4DNSJo8d3/exec', {
+            redirect: "follow",
             method: 'POST',
             contentType: 'application/json',
             payload: JSON.stringify({date: date, time: time, place: place, selectedCheckboxes: selectedCheckboxes}),
