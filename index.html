@@ -515,7 +515,35 @@
             });
           });
         }
-        
+
+        document.getElementById('submitReport').addEventListener('click', function() {
+        var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+        var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
+        var place = getParameterByName('place'); // Function to extract URL parameter
+        var selectedCheckboxes = getSelectedCheckboxes(); // Function to get selected checkboxes values
+
+        fetch('https://script.google.com/macros/s/AKfycbwEnl_lwZkvnO-mHZRJj7MdR0ynY4-0zZO28nNnnphCMXGqSNNIOdBS3mjbPaHxRnlq/exec', {
+            method: 'POST',
+            contentType: 'application/json',
+            payload: JSON.stringify({date: date, time: time, place: place, selectedCheckboxes: selectedCheckboxes})
+        }).then(response => response.json())
+            .then(data => console.log(data));
+        });
+
+        function getSelectedCheckboxes() {
+        var checkboxes = document.querySelectorAll('.checkbox-input:checked');
+        return Array.from(checkboxes).map(cb => cb.value).join('、');
+        }
+
+        // Function to extract URL parameter (implement this)
+        function getParameterByName(name) {
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
