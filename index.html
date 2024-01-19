@@ -522,22 +522,22 @@
             var place = getParameterByName('place'); // Function to extract URL parameter
             var selectedCheckboxes = getSelectedCheckboxes(); // Function to get selected checkboxes values
 
-            fetch('https://script.google.com/macros/s/AKfycby0cfZuCV416jrLDlDvrrAYgbvP5BZn-Iy2C-bPlPJmMKCRX6hfTuSVQjh4DNSJo8d3/exec', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "text/json"
-                },
-                body: JSON.stringify({
-                    date: new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }),
-                    time: new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
-                    place: place, // 確保 'place' 變量已經正確定義
-                    selectedCheckboxes: selectedCheckboxes // 確保 'selectedCheckboxes' 變量包含選中的 checkbox 值
-                }),
-                redirect: "follow"
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
+            fetch('https://script.google.com/macros/s/AKfycbxNsFz2mSRobqbRU1vpuBwK_U47Th4MgqJ05jtnkJkQW9nsO0kxs_o7IN3Ba-bPgxnB/exec', {
+              method: 'POST',
+              headers: {
+                  "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                  date: new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }),
+                  time: new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
+                  place: place, // 確保 'place' 變量已經正確定義
+                  selectedCheckboxes: selectedCheckboxes // 確保 'selectedCheckboxes' 變量包含選中的 checkbox 值
+              }),
+              redirect: "follow"
+          })
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .catch(error => console.error('Error:', error));
         });
 
         function getSelectedCheckboxes() {
