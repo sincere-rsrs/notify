@@ -1,138 +1,134 @@
-<style>
+html, body {
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-      html, body {
-          height: 100%;
-          margin: 0 auto;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-      }
+.container {
+    max-width: 768px;
+    width: 100%;
+    box-sizing: border-box;
+}
 
-      .container {
-          max-width: 768px;
-          width: 100%;
-          box-sizing: border-box;
-      }
+.content-wrapper {
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+}
 
-      .content-wrapper {
-          flex: 1;
-          flex-direction: column;
-          justify-content: center;
-      }
+.custom-checkbox-input {
+    display: none;
+}
 
-      .custom-checkbox-input {
-          display: none;
-      }
+.checkbox-svg {
+    fill: #ccc;
+}
 
-      .checkbox-svg {
-          fill: #ccc;
-      }
+.checkbox-label {
+    min-height: 5rem !important;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
-      .checkbox-label {
-          min-height: 5rem !important;
-          text-align: center;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-      }
-
-      .checkbox-label > div {
-          line-height: 1.4 !important;
-      }
+.checkbox-label > div {
+    line-height: 1.4 !important;
+}
 
 
-      .checkbox-text {
-          color: #A16B47;
-      }
+.checkbox-text {
+    color: #A16B47;
+}
 
-      label {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-      }
+label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
 
-      .custom-button {
-          padding: 0.5rem 0.5rem;
-          font-size: 1.25rem;
-          min-width: 150px;
-          border-color: #A16B47 !important;
-      }
+.custom-button {
+    padding: 0.5rem 0.5rem;
+    font-size: 1.25rem;
+    min-width: 150px;
+    border-color: #A16B47 !important;
+}
 
-      .custom-footer {
-          width: 100%;
-          background-color: white;
-          border-top-left-radius: 30px;
-          border-top-right-radius: 30px;
-          box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
-      }
+.custom-footer {
+    width: 100%;
+    background-color: white;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+}
 
-      .custom-footer p {
-          margin: 0;
-          font-weight: bold;
-          color: #A16B47;
-          font-size: 1rem;
-      }
+.custom-footer p {
+    margin: 0;
+    font-weight: bold;
+    color: #A16B47;
+    font-size: 1rem;
+}
 
-      .shadow-container {
-          margin-bottom: 1rem; /* Space for footer overlap */
-      }
+.shadow-container {
+    margin-bottom: 1rem; /* Space for footer overlap */
+}
 
-      /* 響應式媒體查詢 */
-      /* 小於 576px 的裝置，針對非常小的螢幕 */
-      @media only screen 
-      and (min-device-width: 320px) 
-      and (max-device-width: 568px)
-      and (-webkit-min-device-pixel-ratio: 2) {
-          .c-fs-xs {
-              font-size: 1rem !important; /* 適合非常小裝置的字體大小 */
-          }
-      }
+/* 響應式媒體查詢 */
+/* 小於 576px 的裝置，針對非常小的螢幕 */
+@media only screen 
+and (min-device-width: 320px) 
+and (max-device-width: 568px)
+and (-webkit-min-device-pixel-ratio: 2) {
+    .c-fs-xs {
+        font-size: 1rem !important; /* 適合非常小裝置的字體大小 */
+    }
+}
 
-      /* 小於 768px 的裝置 */
-      @media only screen 
-      and (width: 390px) 
-      and (height: 844px) 
-      and (-webkit-device-pixel-ratio: 3) {
-          .c-fs-sm {
-              font-size: 1rem !important; /* 適合小型裝置的字體大小 */
-          }
-      }
+/* 小於 768px 的裝置 */
+@media only screen 
+and (width: 390px) 
+and (height: 844px) 
+and (-webkit-device-pixel-ratio: 3) {
+    .c-fs-sm {
+        font-size: 1rem !important; /* 適合小型裝置的字體大小 */
+    }
+}
 
-      @media (min-width: 768px) {
-          .c-fs-md {
-              font-size: 1.25rem; /* 相當於 Bootstrap 的 fs-4 大小 */
-          }
-          .h1-fs-md {
-              font-size: 2rem;
-          }
-          .h1-md-mb {
-              margin-bottom: 0.5rem;
-          }
-      }
+@media (min-width: 768px) {
+    .c-fs-md {
+        font-size: 1.25rem; /* 相當於 Bootstrap 的 fs-4 大小 */
+    }
+    .h1-fs-md {
+        font-size: 2rem;
+    }
+    .h1-md-mb {
+        margin-bottom: 0.5rem;
+    }
+}
 
-      @media (min-width: 992px) {
-          .c-fs-lg {
-              font-size: 1.5rem; /* 相當於 Bootstrap 的 fs-3 大小 */
-          }
-          .h1-fs-lg {
-              font-size: 2.5rem;
-          }
-          .h1-lg-mb {
-              margin-bottom: 0.75rem;
-          }
-      }
+@media (min-width: 992px) {
+    .c-fs-lg {
+        font-size: 1.5rem; /* 相當於 Bootstrap 的 fs-3 大小 */
+    }
+    .h1-fs-lg {
+        font-size: 2.5rem;
+    }
+    .h1-lg-mb {
+        margin-bottom: 0.75rem;
+    }
+}
 
-      @media (min-width: 1200px) {
-          .c-fs-xl {
-              font-size: 1.75rem; /* 相當於 Bootstrap 的 fs-2 大小 */
-          }
-          .h1-fs-xl {
-              font-size: 3rem;
-          }
-          .h1-xl-mb {
-              margin-bottom: 1rem;
-          }
-      }
-
-  </style>
+@media (min-width: 1200px) {
+    .c-fs-xl {
+        font-size: 1.75rem; /* 相當於 Bootstrap 的 fs-2 大小 */
+    }
+    .h1-fs-xl {
+        font-size: 3rem;
+    }
+    .h1-xl-mb {
+        margin-bottom: 1rem;
+    }
+}
