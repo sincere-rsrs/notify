@@ -479,6 +479,10 @@
             <p>- 信實集團感謝您 -</p>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         
     <script>
         document.querySelectorAll('.custom-checkbox').forEach(function(label) {
@@ -522,23 +526,23 @@
             var place = getParameterByName('place');
             var selectedCheckboxes = getSelectedCheckboxes();
 
-            fetch('https://script.google.com/macros/s/AKfycbxNsFz2mSRobqbRU1vpuBwK_U47Th4MgqJ05jtnkJkQW9nsO0kxs_o7IN3Ba-bPgxnB/exec', {
-                method: 'POST',
-                data: {
-                    date: date,
-                    time: time,
-                    place: place,
-                    selectedCheckboxes: selectedCheckboxes
-                },
-                headers: {
-                    'Content-Type': 'text/plain;charset=utf-8',
-                },
-            })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error('Error:', error));
-          
+
+            var data = {
+                'entry.161438483': date,
+                'entry.1733784270': time,
+                'entry.1188375974': place,
+                'entry.1742472075': selectedCheckboxes
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'https://docs.google.com/forms/d/e/1AqBm3wfM_J-a7lWQIL5Jcl1dvJmKvUhbIWD4rHlgjYk/formResponse',
+                data: data,
+                contentType: 'application/json',
+                dataType: 'jsonp',
+            });
         });
+        
 
         function getSelectedCheckboxes() {
         var checkboxes = document.querySelectorAll('.custom-checkbox-input:checked');
@@ -555,7 +559,6 @@
             return decodeURIComponent(results[2].replace(/\+/g, " "));
         }
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 
   </body>
 </html>
