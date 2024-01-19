@@ -38,7 +38,8 @@ document.getElementById('submitReport').addEventListener('click', function() {
   var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
   var terminal = getParameterByName('terminal');
   var area = getParameterByName('area');
-  var place = getParameterByName('place'); 
+  var place = getParameterByName('place');
+  var key = getParameterByName('key');   
   var selectedCheckboxes = getSelectedCheckboxes();
 
   if (!selectedCheckboxes) {
@@ -52,6 +53,7 @@ document.getElementById('submitReport').addEventListener('click', function() {
       "terminal": terminal,
       "area" : area,
       "place": place,
+      "key": key,
       "selectedCheckboxes": selectedCheckboxes
   };
 
