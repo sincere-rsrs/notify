@@ -71,6 +71,10 @@ document.getElementById('submitReport').addEventListener('click', function() {
     .then(data => console.log("Response from server:", data))
     .catch(error => console.error('Error:', error));
 
+    var toastEl = document.getElementById('successToast');
+    var toast = new bootstrap.Toast(toastEl);
+    toast.show();
+
     resetForm();
 });
 
