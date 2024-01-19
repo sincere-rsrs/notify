@@ -522,8 +522,6 @@
             var place = getParameterByName('place');
             var selectedCheckboxes = getSelectedCheckboxes();
 
-            console.log("Data to send:", dataToSend); // 在這裡輸出數據
-
             fetch('https://script.google.com/macros/s/AKfycbxNsFz2mSRobqbRU1vpuBwK_U47Th4MgqJ05jtnkJkQW9nsO0kxs_o7IN3Ba-bPgxnB/exec', {
                 method: 'POST',
                 data: {
@@ -539,6 +537,8 @@
             .then(response => response.json())
             .then(data => console.log(data))
             .catch(error => console.error('Error:', error));
+
+            console.log("Data to send:", data); // 在這裡輸出數據
         });
 
         function getSelectedCheckboxes() {
