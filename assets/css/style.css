@@ -76,6 +76,11 @@ label {
     margin-bottom: 1rem; /* Space for footer overlap */
 }
 
+.bg-success-custom {
+    background-color: #28a745 !important; /* Bootstrap 綠色 */
+    color: white; /* 設定文字顏色為白色 */
+}
+
 /* 響應式媒體查詢 */
 /* 小於 576px 的裝置，針對非常小的螢幕 */
 @media only screen 
