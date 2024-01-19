@@ -520,27 +520,33 @@
         }
 
         document.getElementById('submitReport').addEventListener('click', function() {
-            var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
-            var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
-            var place = getParameterByName('place');
-            var selectedCheckboxes = getSelectedCheckboxes();
+          var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+          var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
+          var place = getParameterByName('place');
+          var selectedCheckboxes = getSelectedCheckboxes();
+      
+          var data = {
+              'date': date,
+              'time': time,
+              'place': place,
+              'selectedCheckboxes': selectedCheckboxes
+          };
+      
+          $.ajax({
+              type: 'POST',
+              url: 'https://script.google.com/macros/s/AKfycby_noDSTol-mY7X1M0UAv3O6vEVntj9I-jjrOBNxTKHvmhL1FeFRBl-Q9H6TSukne3OOA/exec',
+              data: JSON.stringify(data),
+              contentType: 'application/json',
+              dataType: 'json',
+              success: function(response) {
+                  console.log('Success:', response);
+              },
+              error: function(error) {
+                  console.error('Error:', error);
+              }
+          });
+      });
 
-
-            var data = {
-                'entry.161438483': date,
-                'entry.1733784270': time,
-                'entry.1188375974': place,
-                'entry.1742472075': selectedCheckboxes
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSdZCv0nF59e0CPlRSunpQXewCADdCS3v8yQkHl9I0d15bUz_w/formResponse',
-                data: data,
-                contentType: 'application/json',
-                dataType: 'jsonp',
-            });
-        });
         
 
         function getSelectedCheckboxes() {
