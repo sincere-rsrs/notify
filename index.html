@@ -519,29 +519,33 @@
         document.getElementById('submitReport').addEventListener('click', function() {
             var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
             var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
-            var place = getParameterByName('place'); // Function to extract URL parameter
-            var selectedCheckboxes = getSelectedCheckboxes(); // Function to get selected checkboxes values
+            var place = getParameterByName('place');
+            var selectedCheckboxes = getSelectedCheckboxes();
+
+            var dataToSend = {
+                "date": date,
+                "time": time,
+                "place": place,
+                "selectedCheckboxes": selectedCheckboxes
+            };
+
+            console.log("Data to send:", dataToSend); // 在這裡輸出數據
 
             fetch('https://script.google.com/macros/s/AKfycbxNsFz2mSRobqbRU1vpuBwK_U47Th4MgqJ05jtnkJkQW9nsO0kxs_o7IN3Ba-bPgxnB/exec', {
-              method: 'POST',
-              headers: {
-                  "Content-Type": "application/json"
-              },
-              body: JSON.stringify({
-                  "date": new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' }),
-                  "time": new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false }),
-                  "place": place, // 確保 'place' 變量已經正確定義
-                  "selectedCheckboxes": selectedCheckboxes // 確保 'selectedCheckboxes' 變量包含選中的 checkbox 值
-              }),
-              redirect: "follow"
-          })
-          .then(response => response.json())
-          .then(data => console.log(data))
-          .catch(error => console.error('Error:', error));
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend),
+                redirect: "follow"
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
         });
 
         function getSelectedCheckboxes() {
-        var checkboxes = document.querySelectorAll('.checkbox-input:checked');
+        var checkboxes = document.querySelectorAll('.custom-checkbox-input:checked');
         return Array.from(checkboxes).map(cb => cb.value).join('、');
         }
 
