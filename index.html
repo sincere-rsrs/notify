@@ -522,22 +522,19 @@
             var place = getParameterByName('place');
             var selectedCheckboxes = getSelectedCheckboxes();
 
-            var dataToSend = {
-                "date": date,
-                "time": time,
-                "place": place,
-                "selectedCheckboxes": selectedCheckboxes
-            };
-
             console.log("Data to send:", dataToSend); // 在這裡輸出數據
 
             fetch('https://script.google.com/macros/s/AKfycbxNsFz2mSRobqbRU1vpuBwK_U47Th4MgqJ05jtnkJkQW9nsO0kxs_o7IN3Ba-bPgxnB/exec', {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
+                data: {
+                    date: date,
+                    time: time,
+                    place: place,
+                    selectedCheckboxes: selectedCheckboxes
                 },
-                body: JSON.stringify(dataToSend),
-                redirect: "follow"
+                headers: {
+                    "Content-Type": "Content-Type': 'text/plain;charset=utf-8",
+                },
             })
             .then(response => response.json())
             .then(data => console.log(data))
