@@ -521,7 +521,9 @@
       document.getElementById('submitReport').addEventListener('click', function() {
           var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
           var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
-          var place = getParameterByName('place');
+          var  = getParameterByName('terminal');
+          var  = getParameterByName('area');
+          var place = getParameterByName('place'); 
           var selectedCheckboxes = getSelectedCheckboxes();
       
           if (!selectedCheckboxes) {
@@ -539,7 +541,7 @@
           this.disabled = true;
           setTimeout(() => this.disabled = false, 5000);
       
-          fetch('https://script.google.com/macros/s/AKfycby_noDSTol-mY7X1M0UAv3O6vEVntj9I-jjrOBNxTKHvmhL1FeFRBl-Q9H6TSukne3OOA/exec', {
+          fetch('https://script.google.com/macros/s/AKfycbyEi-2zpVGku_VOPeDEApg3JaHDbrKd3zERjgu3ipbcd2bHFc_McfFxGuA43T4NkIgX/exec', {
               method: 'POST',
               headers: {
                   "Content-Type": "application/x-www-form-urlencoded"
