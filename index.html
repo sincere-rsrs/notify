@@ -519,35 +519,33 @@
           });
         }
 
-        document.getElementById('submitReport').addEventListener('click', function() {
-          var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
-          var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
-          var place = getParameterByName('place');
-          var selectedCheckboxes = getSelectedCheckboxes();
-      
-          var data = {
-              'date': date,
-              'time': time,
-              'place': place,
-              'selectedCheckboxes': selectedCheckboxes
-          };
-      
-          $.ajax({
-              type: 'POST',
-              url: 'https://script.google.com/macros/s/AKfycby_noDSTol-mY7X1M0UAv3O6vEVntj9I-jjrOBNxTKHvmhL1FeFRBl-Q9H6TSukne3OOA/exec',
-              data: JSON.stringify(data),
-              contentType: 'application/json',
-              dataType: 'json',
-              success: function(response) {
-                  console.log('Success:', response);
-              },
-              error: function(error) {
-                  console.error('Error:', error);
-              }
-          });
-      });
+       document.getElementById('submitReport').addEventListener('click', function() {
+            var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
+            var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
+            var place = getParameterByName('place');
+            var selectedCheckboxes = getSelectedCheckboxes();
 
-        
+            var dataToSend = {
+                "date": date,
+                "time": time,
+                "place": place,
+                "selectedCheckboxes": selectedCheckboxes
+            };
+
+            console.log("Data to send:", dataToSend); // 在這裡輸出數據
+
+            fetch('https://script.google.com/macros/s/AKfycby_noDSTol-mY7X1M0UAv3O6vEVntj9I-jjrOBNxTKHvmhL1FeFRBl-Q9H6TSukne3OOA/exec', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dataToSend),
+                redirect: "follow"
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error('Error:', error));
+        });        
 
         function getSelectedCheckboxes() {
         var checkboxes = document.querySelectorAll('.custom-checkbox-input:checked');
