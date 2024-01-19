@@ -521,8 +521,8 @@
       document.getElementById('submitReport').addEventListener('click', function() {
           var date = new Date().toLocaleDateString('zh-TW', { timeZone: 'Asia/Taipei' });
           var time = new Date().toLocaleTimeString('zh-TW', { timeZone: 'Asia/Taipei', hour12: false });
-          var  = getParameterByName('terminal');
-          var  = getParameterByName('area');
+          var terminal = getParameterByName('terminal');
+          var area = getParameterByName('area');
           var place = getParameterByName('place'); 
           var selectedCheckboxes = getSelectedCheckboxes();
       
@@ -534,6 +534,8 @@
           var dataToSend = {
               "date": date,
               "time": time,
+              "terminal": terminal,
+              "area" : area,
               "place": place,
               "selectedCheckboxes": selectedCheckboxes
           };
